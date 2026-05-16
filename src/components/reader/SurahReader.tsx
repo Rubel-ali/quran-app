@@ -21,7 +21,8 @@ export default function SurahReader({ surah, allSurahs }: SurahReaderProps) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [bookmarkOpen, setBookmarkOpen] = useState(false);
 
-  
+  const { settings, updateFontSettings, updateReadingSettings, mounted } =
+    useSettings();
 
   // Pass totalAyahs so audio hook can auto-advance to next ayah
   const {
