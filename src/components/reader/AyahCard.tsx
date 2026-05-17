@@ -26,22 +26,6 @@ const PauseIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const BookmarkIcon = () => (
-  <svg
-    className="w-4 h-4"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={1.5}
-      d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
-    />
-  </svg>
-);
-
 const MoreIcon = () => (
   <svg
     className="w-4 h-4"
@@ -61,6 +45,7 @@ const MoreIcon = () => (
 function getFontClass(font: FontSettings["arabicFont"]) {
   if (font === "Amiri") return "font-arabic-amiri";
   if (font === "Scheherazade") return "font-arabic-scheherazade";
+
   return "font-arabic-kfgq";
 }
 
@@ -83,14 +68,13 @@ export default function AyahCard({
         isPlaying && "bg-[#0f1a0f]",
       )}
     >
-      {/* Verse number row */}
       <div className="flex items-center gap-3 mb-4">
         <div
           className={clsx(
             "w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold border transition-colors",
             isPlaying
               ? "bg-[#3d8b3d] border-[#3d8b3d] text-white"
-              : "bg-transparent border-[#30363d] text-[#6e7681] group-hover:border-[#484f58] group-hover:text-[#8b949e]",
+              : "bg-transparent border-[#30363d] text-[#6e7681]",
           )}
         >
           {ayah.numberInSurah}
@@ -99,7 +83,6 @@ export default function AyahCard({
         <span className="text-[#6e7681] text-xs">{verseLabel}</span>
 
         <div className="flex items-center gap-1 ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
-          {/* Play button */}
           <button
             onClick={onPlay}
             disabled={isLoading}
@@ -125,6 +108,7 @@ export default function AyahCard({
                   stroke="currentColor"
                   strokeWidth="4"
                 />
+
                 <path
                   className="opacity-75"
                   fill="currentColor"
@@ -138,38 +122,28 @@ export default function AyahCard({
             )}
           </button>
 
-          {/* Bookmark */}
           <button
             onClick={onToggleBookmark}
             className={clsx(
               "w-8 h-8 rounded-full flex items-center justify-center transition-all",
               isBookmarked
-                ? "text-[#4caf50] hover:bg-[#161b22]"
+                ? "text-[#4caf50]"
                 : "text-[#6e7681] hover:bg-[#161b22] hover:text-[#e6edf3]",
             )}
-            title={isBookmarked ? "Remove bookmark" : "Bookmark ayah"}
           >
-            {isBookmarked ? (
-              // Filled bookmark
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-              </svg>
-            ) : (
-              // Outline bookmark
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
-                />
-              </svg>
-            )}
+            <svg
+              className="w-4 h-4"
+              fill={isBookmarked ? "currentColor" : "none"}
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
+              />
+            </svg>
           </button>
 
           {/* More */}
@@ -179,7 +153,6 @@ export default function AyahCard({
         </div>
       </div>
 
-      {/* Arabic text */}
       <p
         dir="rtl"
         className={clsx(
@@ -187,26 +160,29 @@ export default function AyahCard({
           getFontClass(fontSettings.arabicFont),
           isPlaying && "green-glow text-[#a7f3a0]",
         )}
-        style={{ fontSize: `${fontSettings.arabicFontSize}px` }}
+        style={{
+          fontSize: `${fontSettings.arabicFontSize}px`,
+        }}
       >
         {ayah.text}
       </p>
 
-      {/* Translation */}
-      {readingSettings.showTranslation &&
-        readingSettings.mode === "translation" && (
-          <div className="mt-2">
-            <p className="text-[#6e7681] text-xs uppercase tracking-wider mb-1.5">
-              SAHEEH INTERNATIONAL
-            </p>
-            <p
-              className="text-[#8b949e] leading-relaxed"
-              style={{ fontSize: `${fontSettings.translationFontSize}px` }}
-            >
-              {ayah.translation}
-            </p>
-          </div>
-        )}
+      {readingSettings.showTranslation && (
+        <div className="mt-2">
+          <p className="text-[#6e7681] text-xs uppercase tracking-wider mb-1.5">
+            SAHEEH INTERNATIONAL
+          </p>
+
+          <p
+            className="text-[#8b949e] leading-relaxed"
+            style={{
+              fontSize: `${fontSettings.translationFontSize}px`,
+            }}
+          >
+            {ayah.translation}
+          </p>
+        </div>
+      )}
     </div>
   );
 }
