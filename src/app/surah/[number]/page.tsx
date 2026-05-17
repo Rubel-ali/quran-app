@@ -13,8 +13,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const surahNumber = Number(params.number);
-  const surah = await getSurahDetail(surahNumber);
+  const surah = await getSurahDetail(Number(params.number));
   return {
     title: `Surah ${surah.englishName} (${surah.number}) — Quran`,
     description: `Read Surah ${surah.englishName} with Arabic text and English translation. ${surah.numberOfAyahs} ayahs.`,
@@ -22,12 +21,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function SurahPage({ params }: Props) {
-  const surahNumber = Number(params.number);
-
-  const [surah, allSurahs] = await Promise.all([
-    getSurahDetail(surahNumber),
-    getAllSurahs(),
-  ]);
-
-  return <SurahReader surah={surah} allSurahs={allSurahs} />;
+  const surah = await getSurahDetail(Number(params.number));
+  return <SurahReader surah={surah} />;
 }

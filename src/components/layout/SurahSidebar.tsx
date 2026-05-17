@@ -20,12 +20,17 @@ export default function SurahSidebar({
 }: SurahSidebarProps) {
   const [search, setSearch] = useState("");
 
-  const filtered = surahs.filter(
-    (s) =>
-      s.englishName.toLowerCase().includes(search.toLowerCase()) ||
-      s.name.includes(search) ||
-      String(s.number).includes(search),
-  );
+  const filtered = surahs.filter((s) => {
+    const englishName = (s.englishName ?? "").toLowerCase();
+    const name = (s.name ?? "").toLowerCase();
+    const searchText = (search ?? "").toLowerCase();
+
+    return (
+      englishName.includes(searchText) ||
+      name.includes(searchText) ||
+      String(s.number).includes(searchText)
+    );
+  });
 
   return (
     <>
