@@ -13,6 +13,7 @@
   --bg-secondary: #111827;
   --bg-card: #161b22;
   --bg-hover: #1c2333;
+
   --border: #21262d;
   --border-hover: #30363d;
 
@@ -26,12 +27,21 @@
   --green-dim: rgba(61, 139, 61, 0.15);
 }
 
-/* KFGQ Font - King Fahad Glorious Quran */
+/* ────────────────────────────────────────────────────────── */
+/* Quran Font */
+/* ────────────────────────────────────────────────────────── */
+
 @font-face {
   font-family: 'KFGQ';
-  src: url('https://cdn.jsdelivr.net/gh/zahran/quran-fonts@main/KFGQ/KFGQPC_Uthmanic_Script_HAFS.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/zahran/quran-fonts@main/KFGQ/KFGQPC_Uthmanic_Script_HAFS.woff2')
+    format('woff2');
+
   font-display: swap;
 }
+
+/* ────────────────────────────────────────────────────────── */
+/* Reset */
+/* ────────────────────────────────────────────────────────── */
 
 * {
   margin: 0;
@@ -39,82 +49,201 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
+  height: 100%;
+
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  height: 100%;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+
   overflow: hidden;
 }
 
+/* ────────────────────────────────────────────────────────── */
 /* Scrollbar */
+/* ────────────────────────────────────────────────────────── */
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--border-hover);
-  border-radius: 3px;
+  border-radius: 999px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
 
-/* Arabic text utility classes */
+/* ────────────────────────────────────────────────────────── */
+/* Arabic Font Utilities */
+/* ────────────────────────────────────────────────────────── */
+
 .font-arabic-kfgq {
   font-family: 'KFGQ', 'Amiri Quran', serif;
 }
+
 .font-arabic-amiri {
   font-family: 'Amiri Quran', serif;
 }
+
 .font-arabic-scheherazade {
   font-family: 'Scheherazade New', serif;
 }
 
-/* Arabic direction */
+/* ────────────────────────────────────────────────────────── */
+/* Arabic Text */
+/* ────────────────────────────────────────────────────────── */
+
 .arabic-text {
   direction: rtl;
   unicode-bidi: bidi-override;
   line-height: 2;
 }
 
-/* Green glow on active */
+/* ────────────────────────────────────────────────────────── */
+/* Glow */
+/* ────────────────────────────────────────────────────────── */
+
 .green-glow {
-  text-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
+  text-shadow: 0 0 20px rgba(74, 222, 128, 0.45);
 }
 
-/* Smooth transitions */
+/* ────────────────────────────────────────────────────────── */
+/* Smooth */
+/* ────────────────────────────────────────────────────────── */
+
 .transition-all-smooth {
   transition: all 0.2s ease;
 }
 
-/* Range slider custom styles */
+/* ────────────────────────────────────────────────────────── */
+/* Range Slider */
+/* ────────────────────────────────────────────────────────── */
+
 input[type='range'] {
   -webkit-appearance: none;
+  appearance: none;
+
   width: 100%;
-  height: 4px;
-  border-radius: 2px;
-  background: #30363d;
+  height: 6px;
+
+  border-radius: 999px;
   outline: none;
+  cursor: pointer;
+
+  background: linear-gradient(
+    to right,
+    var(--green-light) 0%,
+    var(--green-light) var(--progress, 50%),
+    #30363d var(--progress, 50%),
+    #30363d 100%
+  );
 }
+
+/* Chrome / Safari */
+
+input[type='range']::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: transparent;
+}
+
 input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
+  appearance: none;
+
+  width: 18px;
+  height: 18px;
+
+  margin-top: -6px;
+
   border-radius: 50%;
+  border: 2px solid #0d1117;
+
   background: var(--green-light);
+
   cursor: pointer;
-  transition: background 0.2s;
-  box-shadow: 0 0 6px rgba(76, 175, 80, 0.5);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.35);
 }
+
 input[type='range']::-webkit-slider-thumb:hover {
+  transform: scale(1.08);
   background: var(--green-glow);
 }
-input[type='range']::-webkit-slider-runnable-track {
-  height: 4px;
-  border-radius: 2px;
-  background: linear-gradient(to right, var(--green) var(--progress, 50%), #30363d var(--progress, 50%));
+
+/* Firefox */
+
+input[type='range']::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: #30363d;
 }
+
+input[type='range']::-moz-range-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--green-light);
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: var(--green-light);
+
+  cursor: pointer;
+
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.35);
+}
+
+/* Select */
+
+select {
+  background-color: #161b22;
+  color: #e6edf3;
+
+  border: 1px solid var(--primary);
+}
+
+/* Dropdown options */
+
+select option {
+  background-color: #161b22;
+  color: #e6edf3;
+}
+
+/* Selected option */
+
+select option:checked {
+  background: var(--primary) !important;
+  color: white;
+}
+
+/* Hover option */
+
+select option:hover {
+  background: var(--primary-dark);
+  color: white;
+}
+

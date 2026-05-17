@@ -228,22 +228,47 @@ export default function FontSettingsPanel({
                   </span>
                 </div>
                 <div className="relative">
-                  <select
-                    value={fontSettings.arabicFont}
-                    onChange={(e) =>
-                      onUpdateFont({
-                        arabicFont: e.target
-                          .value as FontSettings["arabicFont"],
-                      })
-                    }
-                    className="w-full bg-[#161b22] border border-[#30363d] rounded-lg px-3 py-2.5 text-[#e6edf3] text-sm appearance-none outline-none focus:border-[#3d8b3d] transition-colors cursor-pointer"
-                  >
-                    {ARABIC_FONTS.map((f) => (
-                      <option key={f.key} value={f.key}>
-                        {f.label}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="space-y-2">
+                    {ARABIC_FONTS.map((f) => {
+                      const active = fontSettings.arabicFont === f.key;
+
+                      return (
+                        <button
+                          key={f.key}
+                          type="button"
+                          onClick={() =>
+                            onUpdateFont({
+                              arabicFont: f.key,
+                            })
+                          }
+                          className={clsx(
+                            "w-full rounded-lg border px-3 py-3 text-left transition-all flex items-center justify-between",
+                            active
+                              ? "border-[#4caf50] bg-[#1c2333] text-[#4caf50]"
+                              : "border-[#30363d] bg-[#161b22] text-white hover:border-[#4caf50]",
+                          )}
+                        >
+                          <span>{f.label}</span>
+
+                          {active && (
+                            <svg
+                              className="w-5 h-5 text-[#4caf50]"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2.5}
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
                   <svg
                     className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6e7681] pointer-events-none"
                     fill="none"
@@ -296,4 +321,3 @@ export default function FontSettingsPanel({
     </>
   );
 }
-
