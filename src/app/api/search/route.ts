@@ -8,7 +8,6 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    // Search English translation using alquran.cloud search
     const res = await fetch(
       `https://api.alquran.cloud/v1/search/${encodeURIComponent(q)}/all/en.sahih`
     );

@@ -16,7 +16,6 @@ interface FontSettingsPanelProps {
 }
 
 const ARABIC_FONTS = [
-  { key: "KFGQ" as const, label: "KFGQ" },
   { key: "Amiri" as const, label: "Amiri" },
   { key: "Scheherazade" as const, label: "Scheherazade" },
 ];

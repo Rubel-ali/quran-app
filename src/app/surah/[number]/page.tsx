@@ -1,7 +1,7 @@
 import { getAllSurahs, getSurahDetail } from "@/lib/quran-api";
 import SurahReader from "@/components/reader/SurahReader";
 import type { Metadata } from "next";
-
+import ReaderClient from "@/components/reader/ReaderClient";
 interface Props {
   params: { number: string };
 }
@@ -22,5 +22,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function SurahPage({ params }: Props) {
   const surah = await getSurahDetail(Number(params.number));
-  return <SurahReader surah={surah} />;
+  return <ReaderClient surah={surah} />;
 }

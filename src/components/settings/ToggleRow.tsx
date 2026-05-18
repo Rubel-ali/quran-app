@@ -1,28 +1,43 @@
+"use client";
+
 import clsx from "clsx";
+
+interface ToggleRowProps {
+  label: string;
+  enabled: boolean;
+  onChange: (v: boolean) => void;
+}
 
 function ToggleRow({
   label,
   enabled,
   onChange,
-}: {
-  label: string;
-  enabled: boolean;
-  onChange: (v: boolean) => void;
-}) {
+}: ToggleRowProps) {
   return (
-    <div className="flex items-center justify-between">
-      <span className="text-[#8b949e] text-sm">{label}</span>
+    <div className="flex items-center justify-between gap-4 py-1.5">
+      {/* Label */}
+      <span className="text-[#e6edf3] text-sm leading-none">
+        {label}
+      </span>
+
+      {/* Toggle */}
       <button
+        type="button"
         onClick={() => onChange(!enabled)}
         className={clsx(
-          "relative w-10 h-5 rounded-full transition-colors",
-          enabled ? "bg-[#3d8b3d]" : "bg-[#30363d]",
+          "relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-all duration-200",
+          enabled
+            ? "bg-[#4caf50]"
+            : "bg-[#30363d]"
         )}
       >
+        {/* Circle */}
         <span
           className={clsx(
-            "absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform shadow",
-            enabled ? "translate-x-5" : "translate-x-0.5",
+            "inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform duration-200",
+            enabled
+              ? "translate-x-5"
+              : "translate-x-0.5"
           )}
         />
       </button>
